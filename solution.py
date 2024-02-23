@@ -17,9 +17,12 @@ class LDA:
         Sb = np.zeros((number_of_features,number_of_features))
 
         for i in range(0,1):
-            return NotImplementedError
+            means = np.mean(X[y==i])
+            Sw += (X[y==i]-means).T.dot(X[y==i]-means)
+            diff = (means-np.mean(X,axis=0)).reshape(number_of_features,1)
+            Sb += 2 * (diff).dot(diff.T)
 
-
+    
 
         return NotImplementedError
     def predict_proba(Xtest):
