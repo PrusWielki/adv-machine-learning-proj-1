@@ -22,7 +22,17 @@ class LDA:
             diff = (means-np.mean(X,axis=0)).reshape(number_of_features,1)
             Sb += 2 * (diff).dot(diff.T)
 
-    
+        A = np.linalg.inv(Sw).dot(Sb)
+        eigen_values, eigen_vectors = np.linalg.eig(A)
+        eigen_vectors = eigen_vectors.T
+
+
+        sorted_eigens = np.argsort(abs(eigen_values))[::-1]
+        eigen_values,eigen_vectors = eigen_values[sorted_eigens], eigen_vectors[sorted_eigens]
+        linear_discriminants = eigen_vectors[0:2]
+
+        explained_variance_ratio = np.sort(eigen_values/np.sum(eigen_values))[::-1][:1]
+        print(explained_variance_ratio)
 
         return NotImplementedError
     def predict_proba(Xtest):
